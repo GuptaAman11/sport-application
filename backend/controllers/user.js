@@ -57,10 +57,28 @@ const login = async (req, res) => {
         console.log(error)
     }
 }
+const getAllUsers = async(req,res) =>{
+    try {
+        let users = await User.find()
+          .select("-password") //exclude the password field from being sent to client side
+          .sort([["name", "ascending"]]); // sort by name in ascending order
+        res.json(users);
+    } catch (error) {
+        res.send('Error: ' + error);
+        
+    }
+    
+
+
+
+}
+ 
 
 
 module.exports = {
     register,
     login,
+    getAllUsers
+
 
 }

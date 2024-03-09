@@ -15,7 +15,6 @@ const createEvent = async (req, res) => {
       orgname: orgname,
       location: location,
       description: description,
-      author : User,
       prize : prize
     });
 

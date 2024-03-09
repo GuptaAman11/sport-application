@@ -1,3 +1,5 @@
+import { useState , useEffect} from "react";
+
 export function useAddEvent(){
     const addEvent =async(selectedValues,organizerName,location,date,time,prize,description)=>{
         try {
@@ -17,7 +19,7 @@ export function useAddEvent(){
                 method: "POST",
                 body: JSON.stringify({
                   // email, name, password ,typeOfUser , phoneNumber , address
-                  sportName : selectedValues,
+                  sportname : selectedValues,
                   orgname : organizerName,
                   location:location,
                   description:description,
@@ -37,4 +39,33 @@ export function useAddEvent(){
           }
     }
     return {addEvent}
+}
+export function useGetAllEvent(){
+    const [event, setEvent] = useState({});
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const resp = await fetch(
+                    "http://localhost:8000/api/v1/event/events",
+                    {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    }
+                );
+                const respInJson = await resp.json();
+                if (!respInJson) {
+                    console.log("no data found");
+                }
+                setEvent(respInJson);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchData(); // Call the async function immediately
+    }, []); // Empty dependency array to ensure useEffect runs only once
+
+    return { event };
 }

@@ -4,15 +4,15 @@ const jwt = require('jsonwebtoken')
 
 
 const register = async (req, res) => {
-    const { email, name, password } = req.body;
+    const { email, name, password , typeOfUser } = req.body;
     try {
         if (!email || !name || !password) {
-            res.json({ mssg: "all fields are required" })
+            return res.json({ mssg: "all fields are required" })
         }
 
         const existingUser = await User.findOne({ email: email })
         if (existingUser) {
-            res.json({ mssg: "user already exists" })
+            return res.json({ mssg: "user already exists" })
         }
 
        const hashedpassword = await bcrypt.hash(password, 10);
@@ -20,17 +20,18 @@ const register = async (req, res) => {
             {
                 name: name,
                 email: email,
+                typeOfUser : typeOfUser ,
                 password: hashedpassword
             }
 
         )
         await newUser.save();
 
-        res.json({ mssg: "user created succesfully" })
+        return res.json({ mssg: "user created succesfully" })
 
     } catch (error) {
         console.log(error)
-        res.json({ error: error })
+        return res.json({ error: error })
     }
 }
 
@@ -38,7 +39,7 @@ const login = async (req, res) => {
     const { email, password } = req.body;
     try {
         if (!email || !password) {
-            res.json({ mssg: "all fileds are required" })
+            return res.json({ mssg: "all fileds are required" })
         }
 
         const user = await User.findOne({ email: email })
@@ -48,7 +49,7 @@ const login = async (req, res) => {
         const comparepassword = await bcrypt.compare(password, user.password)
         if (comparepassword) {
             const token = jwt.sign({ user : user }, 'secret_key', { expiresIn: '1h' })
-            res.json({ mssg: "user logged in succesfully", user: user, token: token })
+            return res.json({ mssg: "user logged in succesfully", user: user, token: token })
         }
 
     } catch (error) {

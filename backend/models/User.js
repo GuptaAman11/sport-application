@@ -14,7 +14,21 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-    }
+    },
+    typeOfUser : {
+        type : String ,
+        enum : [ "player" , "eventManger"]
+    },
+    followers : [{
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "User"
+    }],
+    following : [{
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "User"
+    }]
+
+
 })
 
 const User = mongoose.model("User", userSchema);

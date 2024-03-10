@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
+
 
 const Login1 = () => {
   const [user, setUser] = useState("");
@@ -26,16 +28,15 @@ const Login1 = () => {
       if (response.ok) {
         await setUser(responseData);
         navigate("/addprofile");
+        toast.sucess("user logged in successfully")
 
-        console.log("userlogged in sucessfully");
         console.log(user);
         localStorage.setItem("token", responseData.token);
       } else {
-        console.log(responseData.msg);
-        console.log(responseData.msg);
+        toast.error('invalid credentials')
       }
     } catch (error) {
-      console.log(error);
+      toast.error(error);
     }
   };
 

@@ -1,5 +1,7 @@
 import React, { Component, useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from 'react-toastify';
+
 
 const Signup = () => {
   const [registerFormData, setregisterFormData] = useState({
@@ -26,13 +28,12 @@ const Signup = () => {
       );
       const responseData = await response.json();
       if (response.status === 200) {
-        console.log("user created");
-        console.log(responseData);
+        toast.success("user created");
       } else {
         console.log(response.error);
       }
     } catch (error) {
-      console.log(error);
+      toast.error(error);
     }
   };
 

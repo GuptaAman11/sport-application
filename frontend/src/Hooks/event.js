@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 export function useAddEvent(){
     const addEvent =async(selectedValues,organizerName,location,date,time,prize,description)=>{
         try {
-            console.log("first",selectedValues,organizerName,location,date,time,prize,description)
                 
 
             const authToken = localStorage.getItem('token');
@@ -65,7 +64,7 @@ export function useGetAllEvent(){
 
                 }
             } catch (error) {
-                console.log(error);
+                toast.error(error);
             }
         };
 

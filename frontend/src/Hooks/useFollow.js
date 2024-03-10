@@ -32,7 +32,7 @@ export function useFollowUnfollow() {
 
         } catch (error) {
             console.error('error following/unfollowing !!');
-            console.log(error)
+            toast.error(error)
             setError(error.message);
             setisfollowLoading(false);
 

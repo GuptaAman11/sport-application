@@ -27,7 +27,7 @@ export function useGetAllUser() {
           }else{
             toast.sucess("get All person")
           setdata(respInJson);
-          console.log("users>>>", respInJson);}
+        }
         }
       } catch (error) {
         toast.error(error);

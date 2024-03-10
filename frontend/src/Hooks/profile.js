@@ -17,7 +17,6 @@ export function useAddProfile(){
                     },
                     method: "POST",
                     body: JSON.stringify({
-                      // email, name, password ,typeOfUser , phoneNumber , address
                       city:city,
                       phoneNumber : phone,
                       interestedSports : insteredSports,
@@ -31,7 +30,6 @@ export function useAddProfile(){
                 const responseData = await response.json();
                 if (response.ok) {
                   toast.success("add profile sucessfully")
-                  console.log(responseData);
                 }
               } catch (error) {
                 toast.error(error);

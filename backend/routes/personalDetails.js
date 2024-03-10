@@ -1,5 +1,5 @@
 const express = require('express');
-const { createDetails, updateDetails, getDetails } = require('../controllers/personalDetails');
+const { createDetails, updateDetails, getDetails, getProfileByUserId } = require('../controllers/personalDetails');
 const { verifyJWT } = require('../middleware/verify');
 const router = express.Router();
 
@@ -10,6 +10,8 @@ router.post('/createdetails', verifyJWT ,createDetails);
 router.put('/updatedetails',verifyJWT , updateDetails);
 
 // Route to get user details
-router.get('/getdetails',verifyJWT , getDetails);
+router.get('/getdetails' , getDetails);
+router.get('/getProfileByUserId/:userId',verifyJWT , getProfileByUserId);
+
 
 module.exports = router;

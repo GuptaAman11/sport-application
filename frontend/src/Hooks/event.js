@@ -1,9 +1,9 @@
 import { useState , useEffect} from "react";
 
 export function useAddEvent(){
-    const addEvent =async(selectedValues,organizerName,location,date,time,prize,description)=>{
+    const addEvent =async(selectedValues,organizerName,location,date,time,prize,description,file)=>{
         try {
-            console.log("first",selectedValues,organizerName,location,date,time,prize,description)
+            console.log("first",selectedValues,organizerName,location,date,time,prize,description,file)
                 
 
             const authToken = localStorage.getItem('token');

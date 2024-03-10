@@ -1,4 +1,5 @@
 const PersonalDetails = require('../models/personalDetails')
+const User = require('../models/User')
 
 const createDetails = async (req, res) => {
   try {
@@ -54,8 +55,8 @@ const updateDetails = async (req, res) => {
 
 const getDetails = async (req, res) => {
   try {
-    const user = req.user.user._id
-    const details = await PersonalDetails.findOne({ user: user });
+    
+    const details = await PersonalDetails.find();
     if (!details) {
       return res.status(404).json({ msg: "Details not found" });
     }
@@ -66,8 +67,28 @@ const getDetails = async (req, res) => {
   }
 };
 
+
+
+const getProfileByUserId = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+     
+    const user = await PersonalDetails.findById(userId);
+
+    if (user) {
+      res.status(200).json({ msg: "User Found", user });
+    } else {
+      res.status(404).json({ msg: "User not found" });
+    }
+  } catch (error) {
+    console.error('Error getting User by ID:', error.message);
+    res.status(500).json({ msg: "Internal Server Error" });
+  }
+};
 module.exports = {
   createDetails,
   updateDetails,
-  getDetails
+  getDetails ,
+  getProfileByUserId
 };

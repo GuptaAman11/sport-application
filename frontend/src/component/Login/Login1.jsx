@@ -27,7 +27,7 @@ const Login1 = () => {
          const responseData = await response.json();
          if (response.ok) {
             await setUser(responseData)
-            navigate('/home')
+            navigate('/addprofile')
 
              console.log('userlogged in sucessfully');
             console.log(user)

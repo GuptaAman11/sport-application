@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 export function useGetProfile() {
-  const [data, setdata] = useState({});
+  const [data, setdata] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,4 +36,37 @@ export function useGetProfile() {
   }, []); // Empty dependency array means it will only run once when the component mounts
 
   return { data };
+}
+
+
+
+export function useGetProfileByUserId() {
+  const [profile , setProfile] = useState([])
+  console.log(profile)
+  const getProfileByUserId = async(userId)=>{
+      try {
+        const authToken = localStorage.getItem('token');
+
+
+
+        const response = await fetch(`http://localhost:8000/api/v1/details/getProfileByUserId/${userId}` ,{
+          headers: {
+            "Content-Type": "application/JSON",
+            Authorization: `Bearer ${authToken}`,
+
+          },
+          method : 'GET'
+ 
+        })
+        const responseData = await response.json()
+        if (response.ok) {
+          setProfile(responseData.user)
+          console.log("response Data",responseData.user)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    
+  }
+  return {profile ,getProfileByUserId}
 }

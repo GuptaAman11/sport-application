@@ -1,8 +1,9 @@
 import React from "react";
-import { useGetAllUser } from "../../Hooks/getAllUser";
+import { useGetProfile } from "../../Hooks/getProfile";
+import { Link } from "react-router-dom";
 const User = () => {
-  const { data } = useGetAllUser();
-  console.log(typeof data);
+  const { data } = useGetProfile();
+  console.log("this is data", data)
 
   if (!data) {
     return <div>Loading...</div>;
@@ -10,7 +11,7 @@ const User = () => {
   return (
     <>
       <div className="pt-10 pr-10 pb-50 pl-10 grid grid-cols-1 sm:grid-cols-3 ">
-        {data && Array.isArray(data) ? (
+        {data? (
           data.map((data) => (
             <div
               key={data._id}
@@ -18,6 +19,7 @@ const User = () => {
             >
               <div class="flex justify-end px-4 pt-4"></div>
               <div class="flex flex-col items-center pb-10">
+                <Link to={`getuser/${data._id}`}>
                 <img
                   class="w-24 h-24 mb-3 rounded-full shadow-lg"
                   src="/docs/images/people/profile-picture-3.jpg"
@@ -28,6 +30,7 @@ const User = () => {
                 <span class="text-sm text-gray-500 dark:text-gray-400">
                   Kabaddi PLayer
                 </span>
+                </Link>
                 <div class="flex mt-4 md:mt-6">
                   <a
                     href="#"

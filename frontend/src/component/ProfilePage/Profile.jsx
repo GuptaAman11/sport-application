@@ -3,8 +3,10 @@ import "../../Styles/reset.css";
 
 import "../../Styles/addProfile.css";
 import { useAddProfile } from '../../Hooks/profile';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
+    const navigate = useNavigate()
     const {addProfile} = useAddProfile()
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
@@ -16,6 +18,7 @@ const Profile = () => {
     const handleOnSubmit = async(e) => {
         e.preventDefault();
        await addProfile(name, phone, address ,insteredSports, skill, city)
+       navigate('/getallevent')
 
     }
 
@@ -49,8 +52,8 @@ const Profile = () => {
                             <label>Phone Number:</label>
                             <input type="text" id="phone" name="phone" placeholder="Enter your phone number" className='input1' onChange={(e) => setPhone(e.target.value)} />
                         </div>
-                        <div className="input-container-checkbox">
-                            <label htmlFor="sports" className='lebelo'>Interested Sports:</label>
+                        <div className="input-container-checkbox12">
+                            <label htmlFor="sports" className=''>Interested Sports:</label>
                             <input type='text' className='input1' id="textInput" placeholder='enter the sport separated by commas' onChange={getValues} />
                         </div>
                         <div className="input-container">

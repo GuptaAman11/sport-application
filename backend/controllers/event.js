@@ -3,10 +3,17 @@ const Event = require("../models/event");
 const createEvent = async (req, res) => {
   const { sportname, orgname, location, description ,prize,date ,time } = req.body;
   try {
-    console.log("iam in try",sportname, orgname, location, description ,prize,date ,time);
-    if (!sportname || !orgname || !location || !description) {
-      return res.json("All fields are required");
+    let picture ;
+    if(req.file){
+        picture = req.file.path
+
     }
+    
+    console.log(picture)
+    console.log("iam in try",sportname, orgname, location, description ,prize,date ,time);
+    // if (!sportname || !orgname || !location || !description) {
+    //   return res.json("All fields are required");
+    // }
 
     const newEvent = new Event({
       sportname: sportname,
@@ -15,7 +22,8 @@ const createEvent = async (req, res) => {
       orgname: orgname,
       location: location,
       description: description,
-      prize : prize
+      prize : prize,
+      picture:picture
     });
 
     // Save the event and handle errors

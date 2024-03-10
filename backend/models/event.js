@@ -19,9 +19,6 @@ const eventSchema = new   mongoose.Schema({
     prize : {
         type : String
     },
-    picture : {
-        type : String
-    }
     });
 
 //this method is called on every save

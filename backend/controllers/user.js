@@ -73,6 +73,44 @@ const getAllUsers = async(req,res) =>{
 
 }
 
+
+const userFollowUnfollow = async (req, res) => {
+    const { followUserID } = req.params;
+    try {
+        const user = req.user.user._id;
+        console.log("aman",user)
+        const followUser = await User.findById(followUserID)
+        if (!followUser) {
+            return res.status(404).json({ msg: "No user with this ID" });
+        }
+        const currentUser = await User.findById(user);
+        if (!currentUser) {
+            return res.status(404).json({ msg: "No user with this ID" });
+        }
+
+        const isFollowing = currentUser.following.includes(followUserID);
+        if (isFollowing) {
+            currentUser.following.pull(followUserID);
+            followUser.followers.pull(user);
+        } else {
+            currentUser.following.push(followUserID);
+            followUser.followers.push(user);
+        }
+        await currentUser.save();
+        await followUser.save();
+
+        if (isFollowing) {
+            res.status(200).json({ msg: 'unfollowed', followUser: followUser, currentUser: currentUser });
+        } else {
+            res.status(200).json({ msg: 'followed', followUser: followUser, currentUser: currentUser });
+        }
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+        console.log(error);
+
+    }
+}
  
 
 
@@ -80,6 +118,7 @@ module.exports = {
     register,
     login,
     getAllUsers,
+    userFollowUnfollow
 
 
 }

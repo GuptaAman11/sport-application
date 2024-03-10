@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { toast } from 'react-toastify';
+
 
 export function useGetProfile() {
   const [data, setdata] = useState([]);
@@ -25,7 +27,6 @@ export function useGetProfile() {
             console.log("no data found");
           }
           setdata(respInJson);
-          console.log("profile>>>", respInJson);
         }
       } catch (error) {
         console.log(error);
@@ -42,10 +43,20 @@ export function useGetProfile() {
 
 export function useGetProfileByUserId() {
   const [profile , setProfile] = useState([])
-  console.log(profile)
+  const [getUserId , setGetUserId] = useState([])
+
+  
   const getProfileByUserId = async(userId)=>{
       try {
         const authToken = localStorage.getItem('token');
+        if (authToken) {
+          const base64Url = authToken.split('.')[1];
+          const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+          const decodedToken = JSON.parse(atob(base64));
+          
+          
+          setGetUserId(decodedToken.user._id)
+      }
 
 
 
@@ -61,12 +72,11 @@ export function useGetProfileByUserId() {
         const responseData = await response.json()
         if (response.ok) {
           setProfile(responseData.user)
-          console.log("response Data",responseData.user)
         }
       } catch (error) {
-        console.log(error)
+        toast.error(error)
       }
     
   }
-  return {profile ,getProfileByUserId}
+  return {profile ,getProfileByUserId ,getUserId}
 }

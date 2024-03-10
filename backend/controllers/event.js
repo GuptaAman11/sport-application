@@ -3,17 +3,11 @@ const Event = require("../models/event");
 const createEvent = async (req, res) => {
   const { sportname, orgname, location, description ,prize,date ,time } = req.body;
   try {
-    let picture ;
-    if(req.file){
-        picture = req.file.path
-
-    }
     
-    console.log(picture)
     console.log("iam in try",sportname, orgname, location, description ,prize,date ,time);
-    // if (!sportname || !orgname || !location || !description) {
-    //   return res.json("All fields are required");
-    // }
+    if (!sportname || !orgname || !location || !description) {
+      return res.json("All fields are required");
+    }
 
     const newEvent = new Event({
       sportname: sportname,
@@ -22,8 +16,7 @@ const createEvent = async (req, res) => {
       orgname: orgname,
       location: location,
       description: description,
-      prize : prize,
-      picture:picture
+      prize : prize
     });
 
     // Save the event and handle errors
@@ -100,9 +93,21 @@ const getAllEvent = async (req, res) => {
   }
 };
 
+const getEventByEventId = async(req,res)=>{
+  const user = req.user.user._id
+  const {eventId} = req.params
+  console.log(eventId)
+  const eventByEventId = await Event.findById(eventId)
+  if(!eventByEventId){
+    return res.status(200).json({msg:"No events found"});
+
+  }
+  return res.status(200).json({msg:"event Foud", eventByEventId});
+}
+
 module.exports = {
   createEvent,
   deleteEvent,
   updateEvent,
-  getAllEvent
+  getAllEvent,getEventByEventId
 };

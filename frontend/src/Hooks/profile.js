@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 export function useAddProfile(){
     const addProfile = async(name, phone, address,insteredSports, skill, city) => {
             try {
@@ -28,10 +30,11 @@ export function useAddProfile(){
                 );
                 const responseData = await response.json();
                 if (response.ok) {
+                  toast.success("add profile sucessfully")
                   console.log(responseData);
                 }
               } catch (error) {
-                console.log(error);
+                toast.error(error);
               }
     }
     return {addProfile} ;

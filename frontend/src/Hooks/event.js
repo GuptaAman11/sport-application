@@ -1,9 +1,11 @@
 import { useState , useEffect} from "react";
+import { toast } from 'react-toastify';
+
 
 export function useAddEvent(){
-    const addEvent =async(selectedValues,organizerName,location,date,time,prize,description,file)=>{
+    const addEvent =async(selectedValues,organizerName,location,date,time,prize,description)=>{
         try {
-            console.log("first",selectedValues,organizerName,location,date,time,prize,description,file)
+            console.log("first",selectedValues,organizerName,location,date,time,prize,description)
                 
 
             const authToken = localStorage.getItem('token');
@@ -32,10 +34,10 @@ export function useAddEvent(){
             );
             const responseData = await response.json();
             if (response.ok) {
-              console.log(responseData);
+              toast.sucess("Event created sucessfully");
             }
           } catch (error) {
-            console.log(error);
+            toast.error(error);
           }
     }
     return {addEvent}
@@ -56,9 +58,12 @@ export function useGetAllEvent(){
                 );
                 const respInJson = await resp.json();
                 if (!respInJson) {
-                    console.log("no data found");
+                    toast.error("no data found");
+                }else{
+                  toast.success("here is the all event")
+                  setEvent(respInJson);
+
                 }
-                setEvent(respInJson);
             } catch (error) {
                 console.log(error);
             }
@@ -69,3 +74,7 @@ export function useGetAllEvent(){
 
     return { event };
 }
+
+
+
+

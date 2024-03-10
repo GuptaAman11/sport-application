@@ -12,7 +12,7 @@ const CreateEvent = () => {
     const [time, setTime] = useState("");
     const [prize, setPrize] = useState("");
     const [description, setDescription] = useState("");
-    const [file ,setFile] = useState()
+
     console.log("second",selectedValues,organizerName,location,date,time,prize,description)
 
    
@@ -29,7 +29,7 @@ const CreateEvent = () => {
     };
     const handleCreateEvent =async(e)=>{
         e.preventDefault()
-        await addEvent(selectedValues,organizerName,location,date,time,prize,description,file)
+        await addEvent(selectedValues,organizerName,location,date,time,prize,description)
         
     }
 
@@ -142,17 +142,7 @@ const CreateEvent = () => {
                                     onChange={(e) => setDescription(e.target.value)}
                                 />
                             </div>
-                            <div className="input-container">
-                                <label htmlFor="description">Add poster:</label>
-                                <input
-                                    type="file"
-                                    id="description"
-                                    name="description"
-                                    placeholder="Rules and about sports"
-                                    value={description}
-                                    onChange={(e) => setFile(e.target.files[0])}
-                                />
-                            </div>
+                            
                             
                             <div className="input-container">
                                 <button

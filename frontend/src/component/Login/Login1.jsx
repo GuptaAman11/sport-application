@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import {Link, NavLink,useNavigate} from 'react-router-dom'
+import { toast } from 'react-toastify';
 
 
 const Login1 = () => {
@@ -28,14 +29,12 @@ const Login1 = () => {
          if (response.ok) {
             await setUser(responseData)
             navigate('/addprofile')
-
-             console.log('userlogged in sucessfully');
-            console.log(user)
+            toast.success("user logged in successfully")
              localStorage.setItem('token',responseData.token)
          }
          else {
-             console.log(responseData.msg)
-            console.log(responseData.msg)
+             toast.error(responseData.msg)
+           
          }
       }
        

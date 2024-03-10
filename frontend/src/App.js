@@ -7,11 +7,17 @@ import CreateEvent from "./component/Event/CreateEvent";
 import GetProfile from "./component/ProfilePage/GetProfile";
 import User from "./component/User/User";
 import FetchEvent from "./component/Event/FetchEvent";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+import EventView from "./component/Event/EventView/EventView";
+
+
 
 
 function App() {
   return (
     <div className="App">
+      <ToastContainer />
       <Router>
         <Routes>
           <Route path="/" element={<Login1 />} />
@@ -26,6 +32,8 @@ function App() {
 
             <Route path='/addevent' element={<CreateEvent /> } />
             <Route path='/getallevent' element={<FetchEvent /> } />
+            <Route path='/eventview/:eventId' element={<EventView /> } />
+
 
 
 

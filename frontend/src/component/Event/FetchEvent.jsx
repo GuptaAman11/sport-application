@@ -1,6 +1,7 @@
 import React from 'react'
 import "../../Styles/fetchevent.css"
 import { useGetAllEvent } from '../../Hooks/event'
+import { Link } from 'react-router-dom'
 
 const FetchEvent = () => {
     const {event} = useGetAllEvent()
@@ -11,6 +12,7 @@ const FetchEvent = () => {
     <div className="events">
        {Array.isArray(event)?
         event.map((event,index)=>(
+            <Link to={`/eventview/${event._id}`}>
             <div key={index}className="event-card">
             <h2>World Cup</h2>
             <div className="card-image">
@@ -28,6 +30,7 @@ const FetchEvent = () => {
                 </div>
             </div>
         </div> 
+        </Link>
         )) : <h2>loading</h2>
        }
     </div>

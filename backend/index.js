@@ -4,6 +4,7 @@ const { Connection } = require('./db')
 const userRoutes = require('./routes/user')
 const detailsRoute = require('./routes/personalDetails')
 const eventRoute = require('./routes/event')
+
 const cors = require('cors')
 
 
@@ -21,5 +22,6 @@ Connection()
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/details', detailsRoute);
 app.use('/api/v1/event', eventRoute);
+
 
 

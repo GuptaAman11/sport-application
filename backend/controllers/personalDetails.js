@@ -56,7 +56,7 @@ const updateDetails = async (req, res) => {
 const getDetails = async (req, res) => {
   try {
     
-    const details = await PersonalDetails.find();
+    const details = await PersonalDetails.find().populate('author');
     if (!details) {
       return res.status(404).json({ msg: "Details not found" });
     }
@@ -74,7 +74,7 @@ const getProfileByUserId = async (req, res) => {
     const { userId } = req.params;
 
      
-    const user = await PersonalDetails.findById(userId);
+    const user = await PersonalDetails.findById(userId).populate('author');
 
     if (user) {
       res.status(200).json({ msg: "User Found", user });

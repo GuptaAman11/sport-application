@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { toast } from 'react-toastify';
+
 export function useGetAllUser() {
   const [data, setdata] = useState({});
   useEffect(() => {
@@ -20,13 +22,15 @@ export function useGetAllUser() {
         } else {
           const respInJson = await resp.json();
           if (!respInJson) {
-            console.log("no data found");
-          }
+
+            toast.error("no data found");
+          }else{
+            toast.sucess("get All person")
           setdata(respInJson);
-          console.log("users>>>", respInJson);
+          console.log("users>>>", respInJson);}
         }
       } catch (error) {
-        console.log(error);
+        toast.error(error);
       }
     };
 

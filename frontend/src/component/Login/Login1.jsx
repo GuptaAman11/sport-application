@@ -9,59 +9,9 @@ const Login1 = () => {
     loginPassword: "",
   });
 
-import React, { useState } from 'react'
-import {Link, NavLink,useNavigate} from 'react-router-dom'
-import { toast } from 'react-toastify';
-
-
-const Login1 = () => {
-    const [user,setUser] = useState("");
-    const navigate = useNavigate()
-    const [loginData , setloginData] = useState({
-        loginEmail : "" , loginPassword:""
-    })
-
-    const login =async()=>{
-       try {
-         const response = await fetch(`http://localhost:8000/api/v1/users/login` ,{
-             method : 'POST',
-             headers : {
-                 'Content-Type' : 'application/json'
-             },
- 
-             body: JSON.stringify({
-                 
-                 email: loginData.loginEmail,
-                 password: loginData.loginPassword,
-             }),
- 
-         })
-         const responseData = await response.json();
-         if (response.ok) {
-            await setUser(responseData)
-            navigate('/addprofile')
-            toast.success("user logged in successfully")
-             localStorage.setItem('token',responseData.token)
-         }
-         else {
-             toast.error(responseData.msg)
-           
-         }
-      }
-       
-       catch (error) {
-        console.log(error)
-        
-       }
-
-    
-        
-        
-    }
-
   const login = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/api/v1/users/login`, {
+      const response = await fetch('http://localhost:8000/api/v1/users/login', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

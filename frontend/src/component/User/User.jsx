@@ -1,5 +1,6 @@
 import React from "react";
 import { useGetAllUser } from "../../Hooks/getAllUser";
+import FilterLoc from "../FilterLocation/FilterLoc";
 const User = () => {
   const { data } = useGetAllUser();
   console.log(typeof data);
@@ -9,6 +10,7 @@ const User = () => {
   }
   return (
     <>
+    <FilterLoc data={data}/>
       <div className="pt-10 pr-10 pb-50 pl-10 grid grid-cols-1 sm:grid-cols-3 ">
         {data && Array.isArray(data) ? (
           data.map((data) => (
